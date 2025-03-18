@@ -20,7 +20,8 @@ setup(
     python_requires=">=3.7",
     author="DataoceanAI",
     url="https://github.com/DataoceanAI/dolphin",
-    license="Apache2.0",
+    license="Apache-2.0",
+    license_files="LICENSE",
     packages=[
         "dolphin",
         "dolphin/assets",
