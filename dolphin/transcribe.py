@@ -185,8 +185,8 @@ def transcribe(args: Namespace) -> TranscribeResult:
         if f"{args.lang_sym}-{args.region_sym}" not in LANGUAGE_REGION_CODES:
             raise Exception("Unsupport language or region!")
 
-        lang_sym = f"<{args.lang_sym}>"
-        region_sym = f"<{args.region_sym}>"
+        lang_sym = args.lang_sym
+        region_sym = args.region_sym
     else:
         lang_sym = None
         region_sym = None

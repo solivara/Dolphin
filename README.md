@@ -49,10 +49,10 @@ dolphin audio.wav
 dolphin audio.wav --model small --model_dir /data/models/dolphin/
 
 # Specify language and region
-dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "<zh>" --region_sym "<CN>"
+dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "zh" --region_sym "CN"
 
 # padding speech to 30 seconds
-dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "<zh>" --region_sym "<CN>" --paddig_speech true
+dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "zh" --region_sym "CN" --padding_speech true
 ```
 
 #### Python usage
@@ -63,7 +63,9 @@ import dolphin
 waveform = dolphin.load_audio("audio.wav")
 model = dolphin.load_model("small", "/data/models/dolphin", "cuda")
 result = model(waveform)
-print(result["text"])
+# Specify language and region
+result = model(waveform, lang_sym="zh", region_sym="CN")
+print(result.text)
 ```
 
 ## License
