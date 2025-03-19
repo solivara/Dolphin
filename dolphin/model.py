@@ -214,7 +214,7 @@ class DolphinSpeech2Text(Speech2Text):
             if device == "cuda":
                 device = f"cuda:{torch.cuda.current_device()}"
 
-            state_dict = torch.load(model_file, map_location=device, weights_only=True)
+            state_dict = torch.load(model_file, map_location=device)
             model.load_state_dict(state_dict, strict=False)
 
         return model, args
