@@ -64,7 +64,7 @@ waveform = dolphin.load_audio("audio.wav")
 model = dolphin.load_model("small", "/data/models/dolphin", "cuda")
 result = model(waveform)
 # Specify language and region
-result = model(waveform, lang_sym="<zh>", region_sym="<CN>")
+result = model(waveform, lang_sym="zh", region_sym="CN")
 print(result.text)
 ```
 
