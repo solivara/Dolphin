@@ -299,8 +299,8 @@ class DolphinSpeech2Text(Speech2Text):
 
         Args:
             speech: input speech of shape (nsamples,) or (nsamples, nchannels=1)
-            lang_sym: language code symbol (e.g. <zh>)
-            region_sym: region symbol (e.g. <CN>)
+            lang_sym: language code symbol (e.g. zh)
+            region_sym: region symbol (e.g. CN)
             predict_time: whether to predict timestamps
             padding_speech: whether to padding speech to 30 seconds, default is true
 
@@ -312,8 +312,8 @@ class DolphinSpeech2Text(Speech2Text):
         predict_time = predict_time if predict_time is not None else self.predict_time
 
         if all([lang_sym, region_sym]):
-            lang_id = self.converter.token2id[lang_sym]
-            region_id = self.converter.token2id[region_sym]
+            lang_id = self.converter.token2id[f"<{lang_sym}>"]
+            region_id = self.converter.token2id[f"<{region_sym}>"]
         else:
             lang_id, region_id = self.detect_language(speech)
 
