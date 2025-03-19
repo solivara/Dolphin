@@ -52,7 +52,7 @@ dolphin audio.wav --model small --model_dir /data/models/dolphin/
 dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "zh" --region_sym "CN"
 
 # padding speech to 30 seconds
-dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "zh" --region_sym "CN" --paddig_speech true
+dolphin audio.wav --model small --model_dir /data/models/dolphin/ --lang_sym "zh" --region_sym "CN" --padding_speech true
 ```
 
 #### Python usage
