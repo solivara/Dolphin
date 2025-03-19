@@ -1,18 +1,20 @@
 # encoding: utf8
 
 import yaml
-import urllib
 import tqdm
+import urllib
 import logging
-import argparse
-from argparse import Namespace
-from pathlib import Path
+import hashlib
 import os.path
+import argparse
+from pathlib import Path
+from argparse import Namespace
 from os.path import dirname, join, abspath, join
 from distutils.util import strtobool
 from typing import Union, Optional, Tuple
 
 import torch
+import modelscope
 
 from .audio import load_audio
 from .model import DolphinSpeech2Text, TranscribeResult
@@ -23,7 +25,9 @@ logger = logging.getLogger("dolphin")
 
 MODELS = {
     "base": {
+        "model_id": "DataoceanAI/dolphin-base",
         "download_url": "http://so-algorithm-prod.oss-cn-beijing.aliyuncs.com/models/dolphin/base.pt",
+        "sha256": "688f0cdb26da2684a4eec200a432091920287585e8e332507cbe9c1ab6d77401",
         "config": {
             "encoder": {
                 "output_size": 512,
@@ -40,7 +44,9 @@ MODELS = {
         }
     },
     "small": {
+        "model_id": "DataoceanAI/dolphin-small",
         "download_url": "http://so-algorithm-prod.oss-cn-beijing.aliyuncs.com/models/dolphin/small.pt",
+        "sha256": "e5a52b9a713d294d5a2d929f5e7f6a18d951a8155ede80f935a74b76b0432b17",
         "config": {
             "encoder": {
                 "output_size": 768,
@@ -128,24 +134,13 @@ def load_model(
     return model
 
 
-def _download(url: str, download_path: str) -> None:
-    filename = os.path.basename(download_path)
-    with urllib.request.urlopen(url) as source, open(download_path, "wb") as output:
-        with tqdm.tqdm(
-            total=int(source.info().get("Content-Length")),
-            ncols=80,
-            unit="iB",
-            unit_scale=True,
-            unit_divisor=1024,
-            desc=f"download model {filename}"
-        ) as loop:
-            while True:
-                buffer = source.read(8192)
-                if not buffer:
-                    break
-
-                output.write(buffer)
-                loop.update(len(buffer))
+def _download_from_modelscope(model_id: str, local_dir: str, allow_file_pattern: str):
+    modelscope.snapshot_download(
+        model_id=model_id,
+        local_dir=local_dir,
+        allow_file_pattern=allow_file_pattern,
+        repo_type="model",
+    )
 
 
 def transcribe(args: Namespace) -> TranscribeResult:
@@ -164,14 +159,27 @@ def transcribe(args: Namespace) -> TranscribeResult:
         return
 
     model_dir: Path = args.model_dir
-    model_dir = model_dir if model_dir else join(os.path.expanduser("~"), ".cache/dolphin")
+    model_dir = model_dir if model_dir else os.path.expanduser("~/.cache/dolphin")
     model_dir = Path(model_dir)
     model_path = model_dir / f"{model_name}.pt"
-    if not model_path.exists():
+    download_model = True
+    if model_path.exists():
+        with open(model_path, "rb") as f:
+            model_bytes = f.read()
+        if hashlib.sha256(model_bytes).hexdigest() == MODELS[model_name]["sha256"]:
+            download_model = False
+        else:
+            model_path.unlink(missing_ok=True)
+            logger.warning("model SHA256 chechsum mismatch, redownload model...")
+
+    if download_model:
         # Download model
         model_dir.mkdir(exist_ok=True)
-        url = MODELS[model_name]["download_url"]
-        _download(url, model_path)
+        _download_from_modelscope(
+            model_id=MODELS[model_name]["model_id"],
+            local_dir=model_dir,
+            allow_file_pattern=f"{model_name}.pt",
+        )
 
     logger.info("loading model...")
     model_kwargs = {
