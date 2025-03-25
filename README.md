@@ -9,7 +9,7 @@ Dolphin is a multilingual, multitask ASR model developed through a collaboration
 
 ## Approach
 
-![Mulitask data format](https://raw.githubusercontent.com/DataoceanAI/Dolphin/refs/heads/main/multitask-data-format.png)
+![Mulitask data format](https://raw.githubusercontent.com/DataoceanAI/Dolphin/refs/heads/main/figures/multitask-data-format.png)
 Dolphin largely follows the innovative design approach of [Whisper](https://github.com/openai/whisper) and [OWSM](https://github.com/espnet/espnet/tree/master/egs2/owsm_v3.1/s2t1). A joint CTC-Attention architecture is adopted, with encoder based on E-Branchformer and decoder based on standard Transformer. Several key modifications are introduced for its specific focus on ASR. Dolphin does not support translation tasks, and eliminates the use of previous text and its related tokens.
 
 A significant enhancement in Dolphin is the introduction of a two-level language token system to better handle linguistic and regional diversity, especially in Dataocean AI dataset. The first token specifies the language (e.g., `<zh>`, `<ja>`), while the second token indicates the region (e.g., `<CN>`, `<JP>`). See details in [paper].
