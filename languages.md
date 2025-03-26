@@ -55,7 +55,7 @@
 | zh-ANHUI           | Chinese (Anhui)                  | 中文(安徽话)          |
 | zh-TIANJIN         | Chinese (Tianjin)                | 中文(天津话)          |
 | zh-NINGXIA         | Chinese (Ningxia)                | 中文(宁夏话)          |
-| zh-SHAANXI         | Chinese (Shanxi)                 | 中文(陕西话)          |
+| zh-SHAANXI         | Chinese (Shaanxi)                 | 中文(陕西话)          |
 | zh-HEBEI           | Chinese (Hebei)                  | 中文(河北话)          |
 | zh-SHANDONG        | Chinese (Shandong)               | 中文(山东话)          |
 | zh-GUANGDONG       | Chinese (Guangdong)              | 中文(广东话)          |
