@@ -208,7 +208,11 @@ class DolphinSpeech2Text(Speech2Text):
         model = S2TTask.build_model(args)
         if not isinstance(model, AbsESPnetModel):
             raise RuntimeError(f"model must inherit {AbsESPnetModel.__name__}, but got {type(model)}")
-        model.to(device)
+
+        if device == "mps":
+            model.to(device, dtype=torch.float32)
+        else:
+            model.to(device)
 
         if model_file is not None:
             if device == "cuda":
