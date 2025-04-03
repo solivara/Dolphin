@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+.idea/
+
 # Distribution / packaging
 .Python
 build/
@@ -170,3 +172,5 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 test.ipynb
+
+example/data
