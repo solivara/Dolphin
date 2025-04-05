@@ -1,0 +1,1 @@
+docker build -t dolphin:cpu-api-1.0.0 .
