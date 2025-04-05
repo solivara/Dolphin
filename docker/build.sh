@@ -1,1 +1,1 @@
-docker build -t Dolphin:cuda-api-1.0.0 .
+docker build -t dolphin:cuda-api-1.0.0 .
