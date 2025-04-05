@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify
 import dolphin
 
+from modelscope.pipelines import pipeline
+from modelscope.utils.constant import Tasks
+
 app = Flask("Dolphin API")
 
 
@@ -21,7 +24,10 @@ def transcribe_audio():
 
         # 加载音频文件并进行转录
         waveform = dolphin.load_audio(temp_audio_path)
-        result = model(waveform)
+        result: TranscribeResult = model(waveform)
+
+        if args.punctuate:
+            result.text = inference_pipline(result.text)
 
         # 返回转录后的文本
         return jsonify(result)
@@ -38,9 +44,20 @@ if __name__ == '__main__':
     parser.add_argument('--device', default='cuda', help='使用的设备 (cpu 或 cuda)。')
     parser.add_argument('--model', default='small', help='使用的模型 (small 或 large)。')
     parser.add_argument('--model_dir', default='/workspace/models/DataoceanAI/dolphin-small', help='模型的路径。')
+    parser.add_argument('--punctuate', action='store_true', help='是否标点符号化。')
+    parser.add_argument('--punctuation_model',
+                        default='/workspace/models/iic/punc_ct-transformer_zh-cn-common-vocab272727-pytorch',
+                        help='标点符号模型的路径。')
+    parser.add_argument('--punctuation_model_revision', default='v2.0.4', help='标点符号模型的版本。')
     args = parser.parse_args()
 
     # 加载 Dolphin 模型
     model = dolphin.load_model(args.model, args.model_dir, device=args.device)
+
+    if args.punctuate:
+        inference_pipline = pipeline(
+            task=Tasks.punctuation,
+            model=args.punctuation_model,
+            model_revision=args.punctuation_model_revision, )
 
     app.run(debug=args.debug, host='0.0.0.0', port=50050)
