@@ -21,9 +21,9 @@ RUN curl https://ghfast.top/https://github.com/nltk/nltk_data/archive/gh-pages.z
 
 ENV NLTK_DATA /workspace/nltk_data/packages
 
-COPY ./api.py /workspace/api
+COPY ../api.py /workspace/api
 
-COPY ./requirements-api.txt /workspace/requirements-api.txt
+COPY ../requirements-api.txt /workspace/requirements-api.txt
 
 RUN pip3 install --no-cache-dir -r /workspace/requirements-api.txt
 
