@@ -27,7 +27,7 @@ ENV device cpu
 
 ENV port 50050
 
-RUN git clone https://github.com/solivara/dolphin.git
+RUN git clone https://gitclone.com/github.com/solivara/dolphin.git
 
 WORKDIR /workspace/dolphin
 
