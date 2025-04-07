@@ -1,8 +1,12 @@
+import argparse
+
 from flask import Flask, request, jsonify
 import dolphin
 
 from modelscope.pipelines import pipeline
 from modelscope.utils.constant import Tasks
+
+from dolphin.model import TranscribeResult
 
 app = Flask("Dolphin API")
 
