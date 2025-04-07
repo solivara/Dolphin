@@ -37,7 +37,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="运行 Dolphin Flask 服务。")
     parser.add_argument('--debug', action='store_true', help='是否开启调试模式。')
     parser.add_argument('--host', default='0.0.0.0', help='服务监听的 IP 地址。')
-    parser.add_argument('--port', type=int, default=50050, help='服务监听的端口号。')
+    parser.add_argument('--port', default="50050", help='服务监听的端口号。')
     parser.add_argument('--device', default='cuda', help='使用的设备 (cpu 或 cuda)。')
     parser.add_argument('--model', default='small', help='使用的模型 (small 或 large)。')
     parser.add_argument('--model_dir', default='/workspace/models/DataoceanAI/dolphin-small', help='模型的路径。')
@@ -46,4 +46,4 @@ if __name__ == '__main__':
     # 加载 Dolphin 模型
     model = dolphin.load_model(args.model, args.model_dir, device=args.device)
 
-    app.run(debug=args.debug, host='0.0.0.0', port=50050)
+    app.run(debug=args.debug, host=args.host, port=int(args.port))
