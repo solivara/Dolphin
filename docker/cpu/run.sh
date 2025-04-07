@@ -1,1 +1,1 @@
-docker run -d -p 50050:50050 --name dolphin-cpu-api Dolphin:cpu-api-1.0.0
+docker run -d -p 50050:50050 -e device=cpu --name dolphin-cpu-api Dolphin:cpu-api-1.0.0
