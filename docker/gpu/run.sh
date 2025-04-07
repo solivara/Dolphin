@@ -1,1 +1,1 @@
-docker run -d -p 50050:50050 --name dolphin-cuda-api Dolphin:cuda-api-1.0.0
+docker run -d -p 50050:50050 --name dolphin-cuda-api dolphin:cuda-api-1.0.0
