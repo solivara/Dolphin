@@ -27,7 +27,7 @@ RUN git clone https://github.com/solivara/dolphin.git
 
 WORKDIR /workspace/dolphin
 
-RUN pip3 install --no-cache-dir -r /workspace/requirements-api.txt
+RUN pip3 install --no-cache-dir -r /workspace/dolphin/requirements-api.txt
 
 EXPOSE 50050
 
