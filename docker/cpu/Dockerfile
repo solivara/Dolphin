@@ -19,6 +19,8 @@ RUN wget -O nltk_data.zip https://ghfast.top/https://github.com/nltk/nltk_data/a
     mv nltk_data-gh-pages nltk_data && \
     rm nltk_data.zip
 
+RUN modelscope download --model DataoceanAI/dolphin-small --local_dir /workspace/models/DataoceanAI/dolphin-small
+
 ENV NLTK_DATA /workspace/nltk_data/packages
 
 ENV device cpu
