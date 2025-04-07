@@ -1,4 +1,5 @@
 FROM ubuntu:22.04
+
 LABEL authors="solivara"
 
 WORKDIR /workspace
@@ -14,7 +15,7 @@ RUN pip3 config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/w
 
 RUN pip3 install --no-cache-dir dataoceanai-dolphin torchaudio
 
-RUN wget -O nltk_data.zip https://ghfast.top/https://github.com/nltk/nltk_data/archive/gh-pages.zip && \
+RUN wget -O nltk_data.zip https://github.com/nltk/nltk_data/archive/gh-pages.zip && \
     unzip nltk_data.zip && \
     mv nltk_data-gh-pages nltk_data && \
     rm nltk_data.zip
@@ -27,7 +28,7 @@ ENV device cpu
 
 ENV port 50050
 
-RUN git clone https://gitclone.com/github.com/solivara/dolphin.git
+RUN git clone https://github.com/solivara/dolphin.git
 
 WORKDIR /workspace/dolphin
 
