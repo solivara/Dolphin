@@ -24,7 +24,7 @@ RUN modelscope download --model DataoceanAI/dolphin-small --local_dir /workspace
 
 ENV NLTK_DATA /workspace/nltk_data/packages
 
-ENV device cpu
+ENV device "cpu"
 
 ENV port 50050
 
