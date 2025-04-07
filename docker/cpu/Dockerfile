@@ -8,7 +8,7 @@ RUN sed -i "s@http://.*archive.ubuntu.com@http://mirrors.huaweicloud.com@g" /etc
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        python3.10 python3-pip ffmpeg git wget build-essential python3-dev
+        python3.10 python3-pip ffmpeg git wget unzip build-essential python3-dev
 
 RUN pip3 config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
 
