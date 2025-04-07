@@ -24,10 +24,6 @@ RUN modelscope download --model DataoceanAI/dolphin-small --local_dir /workspace
 
 ENV NLTK_DATA /workspace/nltk_data/packages
 
-ENV device "cpu"
-
-ENV port 50050
-
 RUN git clone https://github.com/solivara/dolphin.git
 
 WORKDIR /workspace/dolphin
@@ -36,4 +32,4 @@ RUN pip3 install --no-cache-dir -r /workspace/dolphin/requirements-api.txt
 
 EXPOSE 50050
 
-CMD ["python3", "/workspace/dolphin/api.py", "--device", "$device", "--port", "$port"]
+CMD ["python3", "/workspace/dolphin/api.py"]
