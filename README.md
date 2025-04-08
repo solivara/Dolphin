@@ -86,6 +86,15 @@ result = model(waveform, lang_sym="zh", region_sym="CN")
 print(result.text)
 ```
 
+### Docker usage
+
+
+```shell
+docker pull mapol/dolphin:cpu-api-1.0.0
+
+docker run -d -p 50050:50050 --name dolphin mapol/dolphin:cpu-api-1.0.0
+```
+
 ## License
 
 Dolphin's code and model weights are released under the [Apache 2.0 License](./LICENSE).

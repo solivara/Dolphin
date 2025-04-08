@@ -1,4 +1,5 @@
 FROM nvidia/cuda:12.4.1-cudnn-devel-ubuntu22.04
+
 LABEL authors="solivara"
 
 WORKDIR /workspace
@@ -18,6 +19,8 @@ RUN wget -O nltk_data.zip https://github.com/nltk/nltk_data/archive/gh-pages.zip
     unzip nltk_data.zip && \
     mv nltk_data-gh-pages nltk_data && \
     rm nltk_data.zip
+
+RUN modelscope download --model DataoceanAI/dolphin-small --local_dir /workspace/models/DataoceanAI/dolphin-small
 
 ENV NLTK_DATA /workspace/nltk_data/packages
 
